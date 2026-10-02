@@ -1,0 +1,35 @@
+yaml
+# 1. Nome do Workflow
+name: Meu Primeiro CI
+
+# 2. Quando o workflow vai rodar (Gatilho/Eventos)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 3. O que o workflow vai fazer (Trabalhos)
+jobs:
+  testar-codigo:
+    # O sistema operacional da máquina virtual que o GitHub vai nos dar
+    runs-on: ubuntu-latest
+
+    # Os passos sequenciais que serão executados
+    steps:
+    # Passo 1: Baixar o código do repositório para dentro da máquina virtual
+    - name: Baixando o código fonte
+      uses: actions/checkout@v4
+
+    # Passo 2: Instalar o Python na máquina virtual
+    - name: Configurar o Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # Passo 3: Executar comandos no terminal da máquina virtual
+    - name: Executar um teste simulado
+      run: |
+        echo "Instalando dependências fictícias..."
+        echo "Rodando testes..."
+        python -c "print('Olá Mundo! O GitHub Actions funcionou com sucesso!')"
